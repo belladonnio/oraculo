@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <title>"Oráculo" - Emanuel Bellanti</title>
+  <style>
+    html {
+      max-width: 100vw;
+      max-height: 100vh;
+      overflow: hidden;
+    }
+
+    body {
+      background-image: url('img/background.jpg');
+      background-size: 80%;
+      background-position: center;
+      background-color: #f44336;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 38px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    p {
+      font-size: 28px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: -40px;
+      padding: 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 100vh;
+    }
+
+    li {
+      flex: 0 0 15%;
+    }
+
+    .glow-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .glow-container img {
+      border-radius: 60%;
+      border: 5px solid #fff;
+      cursor: pointer;
+      width: 100%;
+      height: auto;
+    }
+
+    .glow-effect {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 60%;
+      box-shadow: 0 0 20px 10px rgba(255, 255, 255, 1);
+      opacity: 1;
+      /* Hace que el resplandor sea inicialmente visible */
+    }
+
+    .text-container {
+      color: #fff;
+      position: absolute;
+      bottom: 50%;
+      transform: translate(0, 50%);
+      z-index: 2;
+      opacity: 0;
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 155px;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .glow-container.active~.tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+  <script src="anime/lib/anime.min.js"></script>
+</head>
+
+<body>
+  <p>Or&aacuteculo<br></p>
+  <ul>
+    <li>
+      <div class="tooltip">
+        <a href="caos.html">
+          <div class="glow-container" id="glow4">
+            <div class="glow-effect" id="glow-effect4"></div>
+            <img src="img/caos.jpg" alt="Caos">
+            <div class="text-container" id="text4">Caos</div>
+          </div>
+          <span class="tooltiptext">Caos</span>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div class="tooltip">
+        <a href="cosmos.html">
+          <div class="glow-container" id="glow2">
+            <div class="glow-effect" id="glow-effect2"></div>
+            <img src="img/cosmos.jpg" alt="Cosmos">
+            <div class="text-container" id="text2">Cosmos</div>
+          </div>
+          <span class="tooltiptext">Cosmos</span>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div class="tooltip">
+        <a href="tierra.html">
+          <div class="glow-container" id="glow3">
+            <div class="glow-effect" id="glow-effect3"></div>
+            <img src="img/tierra.jpg" alt="Tierra">
+            <div class="text-container" id="text3">Tierra</div>
+          </div>
+          <span class="tooltiptext">Tierra</span>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div class="tooltip">
+        <a href="tiempo.html">
+          <div class="glow-container" id="glow1">
+            <div class="glow-effect" id="glow-effect1"></div>
+            <img src="img/tiempo.jpg" alt="Tiempo">
+            <div class="text-container" id="text1">Tiempo</div>
+          </div>
+          <span class="tooltiptext">Tiempo</span>
+        </a>
+      </div>
+    </li>
+  </ul>
+
+  <script>
+    function startAnimation(element, translateY, delay) {
+      anime({
+        targets: element,
+        translateY: translateY,
+        duration: 2000,
+        easing: 'easeInOutSine',
+        direction: 'alternate',
+        loop: true,
+        delay: delay
+      });
+    }
+
+    function startTextAnimation(element, delay) {
+      anime({
+        targets: element,
+        opacity: [0, 1, 1, 0], // Hace que el texto aparezca durante 2 segundos y luego desaparezca
+        duration: 2000,
+        easing: 'easeInOutSine',
+        loop: true,
+        delay: delay
+      });
+    }
+
+    function startGlowEffect(element, delay) {
+      anime({
+        targets: element,
+        opacity: [1, 0, 0, 1], // Hace que el resplandor se encienda durante 2 segundos y luego se apague
+        duration: 2000,
+        easing: 'easeInOutSine',
+        loop: true,
+        delay: delay
+      });
+    }
+
+    const glowContainers = document.querySelectorAll('.glow-container');
+    const textContainers = document.querySelectorAll('.text-container');
+    const glowEffects = document.querySelectorAll('.glow-effect');
+
+    glowContainers.forEach((container, index) => {
+      const delay = index * 2000; // 2 seconds delay for each element
+      startAnimation(`#glow${index + 1}`, -220, delay);
+      startTextAnimation(`#text${index + 1}`, delay);
+      startGlowEffect(`#glow-effect${index + 1}`, delay);
+    });
+  </script>
+
+  <audio autoplay loop>
+    <source src="audio/background.mp3" type="audio/mp3">
+</body>
+
+</html>
